@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://ship/Ship.tscn" type="PackedScene" id=1]
+[ext_resource path="res://World.gd" type="Script" id=3]
+[ext_resource path="res://Main.gd" type="Script" id=4]
+
+[sub_resource type="Environment" id=1]
+background_mode = 4
+glow_enabled = true
+glow_blend_mode = 0
+glow_hdr_threshold = 0.87
+glow_hdr_luminance_cap = 1.0
+glow_bicubic_upscale = true
+glow_high_quality = true
+adjustment_brightness = 0.52
+
+[sub_resource type="Curve2D" id=2]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1408, 0, 0, 0, 0, 0, 1416, 792, 0, 0, 0, 0, 0, 784, 0, 0, 0, 0, 0, 0 )
+}
+
+[node name="Main" type="Node"]
+script = ExtResource( 4 )
+
+[node name="World" type="Node2D" parent="."]
+script = ExtResource( 3 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
+environment = SubResource( 1 )
+
+[node name="Ship" parent="World" instance=ExtResource( 1 )]
+position = Vector2( 405, 293 )
+
+[node name="Path2D" type="Path2D" parent="World"]
+curve = SubResource( 2 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="World/Path2D"]
+
+[node name="LevelStartTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[connection signal="world_clear" from="World" to="." method="_on_level_clear"]
+[connection signal="timeout" from="LevelStartTimer" to="." method="_on_LevelStart"]
