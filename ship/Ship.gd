@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-
+signal ship_destroyed
 
 export var color := Color(255, 0, 0)
 export var engine_thrust := 500
@@ -11,14 +11,24 @@ enum Rot { LEFT = -1, NONE = 0, RIGHT = 1 }
 
 var thrust := Vector2()
 var rotation_dir: int = Rot.NONE
-var screensize: Vector2
+
 var Plasma = preload("res://plasma_sm/PlasmaSm.tscn")
+var Explosion = preload("res://explosion/Explosion.tscn")
 
 
 func _ready():
 	$Sprite.modulate = color
-	screensize = get_viewport().get_visible_rect().size
 
+func start(pos: Vector2):
+	position = pos
+
+func hit(_damage, _normal: Vector2):
+	queue_free()
+	var explosion = Explosion.instance()
+	explosion.start(position, Vector2())
+	get_parent().add_child(explosion)
+
+	emit_signal("ship_destroyed")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -46,6 +56,7 @@ func _process(_delta):
 		$Particles2D.emitting = true
 	else:
 		$Particles2D.emitting = false
+
 
 func _physics_process(_delta):
 	pass

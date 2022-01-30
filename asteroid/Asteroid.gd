@@ -66,3 +66,12 @@ func _fix_scale():
 func _integrate_forces(state: Physics2DDirectBodyState):
 	state.transform.origin = Utils.wrap_physics_body(position)
 
+
+
+func _on_Asteroid_body_entered(body: Node):
+	if body.is_in_group("asteroids"):
+		# Skip collision with other asteroids
+		return
+
+	if body.has_method('hit'):
+		body.hit(size, linear_velocity.normalized())

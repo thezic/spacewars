@@ -8,7 +8,8 @@ var Asteroid = preload("res://asteroid/asteroid.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	$Player.spawn_position = get_viewport_rect().size / 2
+	$Player.spawn_ship()
 
 
 func start(nr_asteroids: int):

@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://ship/Ship.tscn" type="PackedScene" id=1]
+[ext_resource path="res://ui/PlayerLives.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://World.gd" type="Script" id=3]
 [ext_resource path="res://Main.gd" type="Script" id=4]
 
@@ -28,18 +29,33 @@ script = ExtResource( 3 )
 [node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
 environment = SubResource( 1 )
 
-[node name="Ship" parent="World" instance=ExtResource( 1 )]
-position = Vector2( 405, 293 )
-
 [node name="Path2D" type="Path2D" parent="World"]
 curve = SubResource( 2 )
 
 [node name="PathFollow2D" type="PathFollow2D" parent="World/Path2D"]
+
+[node name="Player" parent="World" instance=ExtResource( 2 )]
 
 [node name="LevelStartTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
 autostart = true
 
+[node name="GUI" type="Control" parent="."]
+margin_right = 1424.0
+margin_bottom = 800.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerLives" parent="GUI" instance=ExtResource( 1 )]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+margin_left = -165.232
+margin_right = 0.0
+margin_bottom = 105.0
+
 [connection signal="world_clear" from="World" to="." method="_on_level_clear"]
+[connection signal="lives_updated" from="World/Player" to="GUI/PlayerLives" method="update_lives"]
 [connection signal="timeout" from="LevelStartTimer" to="." method="_on_LevelStart"]

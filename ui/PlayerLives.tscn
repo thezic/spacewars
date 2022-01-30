@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ship/ship.png" type="Texture" id=1]
+[ext_resource path="res://ui/PlayerLives.gd" type="Script" id=2]
+
+[node name="PlayerLives" type="GridContainer"]
+anchor_right = 0.116
+anchor_bottom = 0.131
+margin_right = 0.0479889
+margin_bottom = 0.199989
+columns = 5
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+texture = ExtResource( 1 )
+color = Color( 0.72549, 0.101961, 0.101961, 1 )
