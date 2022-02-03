@@ -14,8 +14,11 @@ var Ship = preload("res://ship/Ship.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	emit_signal("lives_updated", lives)
+	reset()
 
+func reset():
+	lives = 3
+	emit_signal("lives_updated", lives)
 
 func spawn_ship(reduce_lives = false):
 	print("Spawn ship")
@@ -31,7 +34,7 @@ func spawn_ship(reduce_lives = false):
 	if err:
 		print("Error connecting ship signal" + str(err))
 
-	get_parent().add_child(ship)
+	add_child(ship)
 
 
 func _on_ship_destroyed():

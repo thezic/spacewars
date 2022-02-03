@@ -5,6 +5,10 @@ export(int) var max_lives := 0
 export(Texture) var texture
 export(Color) var color
 
+func _enter_tree():
+	for child in get_children():
+		remove_child(child)
+
 func _ready():
 	pass
 

@@ -1,61 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://ui/PlayerLives.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://World.gd" type="Script" id=3]
-[ext_resource path="res://Main.gd" type="Script" id=4]
-
-[sub_resource type="Environment" id=1]
-background_mode = 4
-glow_enabled = true
-glow_blend_mode = 0
-glow_hdr_threshold = 0.87
-glow_hdr_luminance_cap = 1.0
-glow_bicubic_upscale = true
-glow_high_quality = true
-adjustment_brightness = 0.52
-
-[sub_resource type="Curve2D" id=2]
-_data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1408, 0, 0, 0, 0, 0, 1416, 792, 0, 0, 0, 0, 0, 784, 0, 0, 0, 0, 0, 0 )
-}
+[ext_resource path="res://game/Game.tscn" type="PackedScene" id=1]
 
 [node name="Main" type="Node"]
-script = ExtResource( 4 )
 
-[node name="World" type="Node2D" parent="."]
-script = ExtResource( 3 )
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
-environment = SubResource( 1 )
-
-[node name="Path2D" type="Path2D" parent="World"]
-curve = SubResource( 2 )
-
-[node name="PathFollow2D" type="PathFollow2D" parent="World/Path2D"]
-
-[node name="Player" parent="World" instance=ExtResource( 2 )]
-
-[node name="LevelStartTimer" type="Timer" parent="."]
-wait_time = 3.0
-one_shot = true
-autostart = true
-
-[node name="GUI" type="Control" parent="."]
-margin_right = 1424.0
-margin_bottom = 800.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PlayerLives" parent="GUI" instance=ExtResource( 1 )]
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 0.0
-margin_left = -165.232
-margin_right = 0.0
-margin_bottom = 105.0
-
-[connection signal="world_clear" from="World" to="." method="_on_level_clear"]
-[connection signal="lives_updated" from="World/Player" to="GUI/PlayerLives" method="update_lives"]
-[connection signal="timeout" from="LevelStartTimer" to="." method="_on_LevelStart"]
+[node name="Game" parent="." instance=ExtResource( 1 )]

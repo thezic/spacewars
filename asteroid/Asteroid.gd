@@ -1,6 +1,7 @@
 extends RigidBody2D
 
-#export var health := 1
+signal asteroid_destroyed(size)
+
 export var size := 5
 export var max_size := 5
 export var split_into := 3
@@ -31,6 +32,7 @@ func _ready():
 
 func hit(_damage: int, normal: Vector2):
 	queue_free()
+	emit_signal("asteroid_destroyed", size)
 	var explosion = Explosion.instance()
 	explosion.start(position, Vector2())
 	get_parent().add_child(explosion)
