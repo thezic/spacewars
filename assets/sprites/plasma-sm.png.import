@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/plasma-sm.png-aea3e5c52d56fc6976ff8ef657f76a4c.stex"
+path="res://.import/plasma-sm.png-d692065020615deae617617b935aa02c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://plasma_sm/plasma-sm.png"
-dest_files=[ "res://.import/plasma-sm.png-aea3e5c52d56fc6976ff8ef657f76a4c.stex" ]
+source_file="res://assets/sprites/plasma-sm.png"
+dest_files=[ "res://.import/plasma-sm.png-d692065020615deae617617b935aa02c.stex" ]
 
 [params]
 

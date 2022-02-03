@@ -12,8 +12,8 @@ enum Rot { LEFT = -1, NONE = 0, RIGHT = 1 }
 var thrust := Vector2()
 var rotation_dir: int = Rot.NONE
 
-var Plasma = preload("res://plasma_sm/PlasmaSm.tscn")
-var Explosion = preload("res://explosion/Explosion.tscn")
+var Plasma = preload("res://objects/plasma_sm/PlasmaSm.tscn")
+var Explosion = preload("res://effects/Explosion.tscn")
 
 
 func _ready():

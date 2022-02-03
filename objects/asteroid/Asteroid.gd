@@ -7,8 +7,8 @@ export var max_size := 5
 export var split_into := 3
 export var base_scale := Vector2(2.0, 2.0)
 
-var Asteroid = load("res://asteroid/asteroid.tscn")
-var Explosion = preload("res://explosion/Explosion.tscn")
+var Asteroid = load("res://objects/asteroid/Asteroid.tscn")
+var Explosion = preload("res://effects/Explosion.tscn")
 
 var split_and_speed = {
 	5: 100,

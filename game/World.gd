@@ -4,8 +4,7 @@ signal world_clear
 
 var check_for_asteroids := false
 
-var Asteroid = preload("res://asteroid/asteroid.tscn")
-
+var Asteroid = preload("res://objects/asteroid/Asteroid.tscn")
 
 onready var spawn_point: PathFollow2D = $AsteroidSpawnPath/AsteroidSpawnPosition
 onready var player = $Player
@@ -19,6 +18,7 @@ func reset():
 	get_tree().call_group('asteroids', 'queue_free')
 	player.reset()
 	player.spawn_ship()
+
 
 func start(nr_asteroids: int):
 	for _i in range(nr_asteroids):
@@ -35,6 +35,7 @@ func start(nr_asteroids: int):
 	check_for_asteroids = true
 
 func _asteroid_destroyed(size: int) -> void:
+	print("destroyed asteroid")
 	pass
 
 

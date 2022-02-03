@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://game/World.gd" type="Script" id=1]
-[ext_resource path="res://player/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://game/player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://ui/PlayerLives.tscn" type="PackedScene" id=3]
 [ext_resource path="res://game/Game.gd" type="Script" id=4]
 [ext_resource path="res://ui/GameOver.tscn" type="PackedScene" id=5]
@@ -60,7 +60,6 @@ margin_bottom = 30.0
 visible = false
 
 [connection signal="world_clear" from="World" to="." method="_on_level_clear"]
-[connection signal="lives_updated" from="World/Player" to="GUI/PlayerLives" method="update_lives"]
 [connection signal="player_gameover" from="World/Player" to="." method="_on_Player_player_gameover"]
 [connection signal="timeout" from="LevelStartTimer" to="." method="_on_LevelStart"]
 [connection signal="restart_game" from="GUI/GameOver" to="." method="reset"]

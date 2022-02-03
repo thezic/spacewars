@@ -10,7 +10,7 @@ export(int) var lives := 3
 # where player spawns
 export(Vector2) var spawn_position := Vector2()
 
-var Ship = preload("res://ship/Ship.tscn")
+var Ship = preload("res://actors/Ship.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

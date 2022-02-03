@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://ship/ship.png" type="Texture" id=1]
-[ext_resource path="res://ship/Ship.gd" type="Script" id=2]
+[ext_resource path="res://assets/sprites/ship.png" type="Texture" id=1]
+[ext_resource path="res://actors/Ship.gd" type="Script" id=2]
 
 [sub_resource type="Gradient" id=4]
 offsets = PoolRealArray( 0, 0.00860585, 0.373494, 0.991394 )

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://asteroid/asteroid.png" type="Texture" id=1]
-[ext_resource path="res://asteroid/Asteroid.gd" type="Script" id=2]
+[ext_resource path="res://assets/sprites/asteroid.png" type="Texture" id=1]
+[ext_resource path="res://objects/asteroid/Asteroid.gd" type="Script" id=2]
 
 [sub_resource type="PhysicsMaterial" id=7]
 friction = 0.0
@@ -13,6 +13,7 @@ bounce = 1.0
 radius = 16.0312
 
 [node name="Asteroid" type="RigidBody2D"]
+position = Vector2( 1, 0 )
 collision_layer = 3
 collision_mask = 3
 physics_material_override = SubResource( 7 )
