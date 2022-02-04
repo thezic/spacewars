@@ -27,6 +27,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Utils="*res://autoload/utils.gd"
+Score="*res://autoload/score.gd"
 
 [display]
 

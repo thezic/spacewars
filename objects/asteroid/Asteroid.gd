@@ -7,6 +7,8 @@ export var max_size := 5
 export var split_into := 3
 export var base_scale := Vector2(2.0, 2.0)
 
+var on_destroyed_clb: FuncRef
+
 var Asteroid = load("res://objects/asteroid/Asteroid.tscn")
 var Explosion = preload("res://effects/Explosion.tscn")
 
@@ -31,8 +33,8 @@ func _ready():
 
 
 func hit(_damage: int, normal: Vector2):
-	queue_free()
-	emit_signal("asteroid_destroyed", size)
+	destroy()
+
 	var explosion = Explosion.instance()
 	explosion.start(position, Vector2())
 	get_parent().add_child(explosion)
@@ -42,8 +44,15 @@ func hit(_damage: int, normal: Vector2):
 		_split(normal.rotated(-PI / 4))
 
 
+func destroy():
+	queue_free()
+	emit_signal("asteroid_destroyed", size)
+	on_destroyed_clb.call_func(size, position)
+
+
 func _split(force: Vector2):
 	var asteroid = Asteroid.instance()
+	asteroid.on_destroyed_clb = on_destroyed_clb
 	asteroid.start(size - 1, position + force.normalized() * 2 * asteroid.get_radius(), force)
 	get_parent().add_child(asteroid)
 

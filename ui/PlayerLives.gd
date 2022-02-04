@@ -30,8 +30,3 @@ func update_lives(value: int):
 
 	for i in get_child_count():
 		get_child(i).visible = value > i
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass

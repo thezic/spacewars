@@ -10,11 +10,13 @@ var level := 1
 onready var game_over_ui := $GUI/GameOver
 onready var start_timer := $LevelStartTimer
 onready var world := $World
+onready var gui := $GUI
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
-	game_over_ui.visible = false
+	Score.reset()
+	gui.update_score(Score.score)
 
 
 
@@ -41,5 +43,6 @@ func _on_Player_player_gameover():
 func reset():
 	game_over_ui.visible = false
 	level = 1
-	$World.reset()
+	Score.reset()
+	world.reset()
 	start_timer.start()
