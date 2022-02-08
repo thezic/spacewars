@@ -9,13 +9,31 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Reference",
+"class": "InputBuffer",
+"language": "GDScript",
+"path": "res://components/InputBuffer.gd"
+}, {
 "base": "Node",
 "class": "ShipAgent",
 "language": "GDScript",
 "path": "res://ShipAgent.gd"
+}, {
+"base": "Node",
+"class": "State",
+"language": "GDScript",
+"path": "res://components/State.gd"
+}, {
+"base": "Node",
+"class": "StateMachine",
+"language": "GDScript",
+"path": "res://components/StateMachine.gd"
 } ]
 _global_script_class_icons={
-"ShipAgent": ""
+"InputBuffer": "",
+"ShipAgent": "",
+"State": "res://components/State.png",
+"StateMachine": "res://components/StateMachine.png"
 }
 
 [application]
@@ -33,6 +51,7 @@ Score="*res://autoload/score.gd"
 
 window/size/width=1422
 window/size/height=800
+window/size/fullscreen=true
 window/stretch/mode="2d"
 window/stretch/aspect="keep_height"
 
@@ -64,12 +83,12 @@ player_1_right={
 }
 player_1_fire={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":45,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":77,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 player_1_shield={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":46,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":78,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 
