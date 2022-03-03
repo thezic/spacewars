@@ -13,7 +13,7 @@ export var action_prefix := "player_1_"
 
 onready var sprite := $Sprite
 onready var shield := $Shield
-
+onready var zap_audio := $ZapAudio
 
 enum Rot { LEFT = -1, NONE = 0, RIGHT = 1 }
 
@@ -71,6 +71,8 @@ func _process(_delta):
 
 	if input_buffer.is_action_just_pressed("fire"):
 		var plasma = Plasma.instance()
+		zap_audio.pitch_scale = rand_range(0.8, 1.2)
+		zap_audio.play()
 		plasma.start($Mussle.global_position, rotation)
 		get_parent().add_child(plasma)
 		apply_central_impulse(transform.x * recoil)

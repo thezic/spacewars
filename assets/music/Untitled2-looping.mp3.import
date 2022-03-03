@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Untitled2-looping.mp3-62952e990b15d5efac2f61b084b557ea.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Untitled2-looping.mp3"
+dest_files=[ "res://.import/Untitled2-looping.mp3-62952e990b15d5efac2f61b084b557ea.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

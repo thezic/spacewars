@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://game/World.gd" type="Script" id=1]
 [ext_resource path="res://game/player/Player.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://ui/GameOver.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/fonts/Infinite.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://ui/GUI.gd" type="Script" id=7]
+[ext_resource path="res://assets/music/Untitled2-looping.mp3" type="AudioStream" id=8]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -77,6 +78,11 @@ margin_left = -161.0
 margin_top = 30.0
 margin_right = -30.0
 margin_bottom = 64.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = -17.661
+autoplay = true
 
 [connection signal="world_clear" from="World" to="." method="_on_level_clear"]
 [connection signal="lives_updated" from="World/Player" to="GUI/PlayerLives" method="update_lives"]
