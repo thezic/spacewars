@@ -53,9 +53,6 @@ autostart = true
 margin_right = 1424.0
 margin_bottom = 800.0
 script = ExtResource( 7 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="GameOver" parent="GUI" instance=ExtResource( 5 )]
 visible = false
@@ -83,9 +80,11 @@ margin_bottom = 64.0
 stream = ExtResource( 8 )
 volume_db = -17.661
 autoplay = true
+bus = "MusicMaster"
 
 [connection signal="world_clear" from="World" to="." method="_on_level_clear"]
 [connection signal="lives_updated" from="World/Player" to="GUI/PlayerLives" method="update_lives"]
 [connection signal="player_gameover" from="World/Player" to="." method="_on_Player_player_gameover"]
 [connection signal="timeout" from="LevelStartTimer" to="." method="_on_LevelStart"]
+[connection signal="quit_game" from="GUI/GameOver" to="." method="_on_GameOver_quit_game"]
 [connection signal="restart_game" from="GUI/GameOver" to="." method="reset"]

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/fonts/Infinite.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://ui/Infinite.tres" type="DynamicFont" id=2]
-[ext_resource path="res://ui/TitleMenu.gd" type="Script" id=3]
+[ext_resource path="res://ui/menu/TitleMenu.gd" type="Script" id=3]
+[ext_resource path="res://objects/asteroid/Asteroid.tscn" type="PackedScene" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 54
@@ -12,9 +13,20 @@ font_data = ExtResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="Asteroid" parent="." instance=ExtResource( 4 )]
+linear_velocity = Vector2( 100, 100 )
+angular_velocity = 5.0
+
+[node name="Asteroid2" parent="." instance=ExtResource( 4 )]
+position = Vector2( -64, 720 )
+linear_velocity = Vector2( -120, 100 )
+angular_velocity = 2.0
+
+[node name="Asteroid3" parent="." instance=ExtResource( 4 )]
+position = Vector2( 1096, 440 )
+linear_velocity = Vector2( 130, -110 )
+angular_velocity = 10.0
 
 [node name="Label" type="Label" parent="."]
 anchor_right = 1.0

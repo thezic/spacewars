@@ -90,9 +90,6 @@ tracks/3/keys = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="."]
 anchor_left = 0.5
@@ -100,7 +97,7 @@ anchor_right = 0.5
 margin_left = 392.0
 margin_top = -104.0
 margin_right = 1031.0
-margin_bottom = -0.999603
+margin_bottom = -0.999664
 custom_fonts/font = ExtResource( 1 )
 text = "Game Over!"
 __meta__ = {
@@ -113,24 +110,22 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -28.5
-margin_top = 62.0
-margin_right = 28.5
-margin_bottom = 106.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_left = -108.0
+margin_top = 24.0
+margin_right = 108.0
+margin_bottom = 152.0
 
 [node name="TryAgain" type="Button" parent="VBoxContainer"]
-margin_right = 68.0
-margin_bottom = 20.0
+margin_right = 216.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
 text = "Try again"
 
 [node name="Back" type="Button" parent="VBoxContainer"]
-visible = false
-margin_top = 24.0
-margin_right = 68.0
-margin_bottom = 44.0
+margin_top = 44.0
+margin_right = 216.0
+margin_bottom = 84.0
+rect_min_size = Vector2( 0, 40 )
 text = "Back"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

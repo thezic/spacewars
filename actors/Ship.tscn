@@ -134,3 +134,4 @@ script = ExtResource( 10 )
 
 [node name="ZapAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )
+bus = "SfxMaster"

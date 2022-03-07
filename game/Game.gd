@@ -1,6 +1,6 @@
 extends Node
 
-
+signal quit_game
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -46,3 +46,7 @@ func reset():
 	Score.reset()
 	world.reset()
 	start_timer.start()
+
+
+func _on_GameOver_quit_game():
+	emit_signal("quit_game")

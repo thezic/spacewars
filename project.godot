@@ -38,7 +38,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Spacewars"
+config/name="Asteroids"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
@@ -46,6 +46,8 @@ config/icon="res://icon.png"
 
 Utils="*res://autoload/utils.gd"
 Score="*res://autoload/score.gd"
+Menu="*res://autoload/menu.gd"
+Settings="*res://autoload/settings.gd"
 
 [display]
 
@@ -57,6 +59,10 @@ window/stretch/aspect="keep_height"
 [global]
 
 displ=false
+
+[gui]
+
+theme/custom="res://theme.tres"
 
 [input]
 
