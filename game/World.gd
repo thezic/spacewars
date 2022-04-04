@@ -42,12 +42,7 @@ func start(nr_asteroids: int) -> void:
 
 func _asteroid_destroyed(size: int, pos: Vector2) -> void:
 	var score = Score.calculate_score_for_asteroid(size, _count_asteroids(), initial_asteroids)
-
-	Score.add(score)
-	var floating_score = FloatingScore.instance()
-
-	add_child(floating_score)
-	floating_score.start(str(score), pos)
+	Score.create_floating_score(score, pos)
 
 
 func _process(_delta):

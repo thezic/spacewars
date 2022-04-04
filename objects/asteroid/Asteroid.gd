@@ -32,7 +32,7 @@ func _ready():
 	_fix_scale()
 
 
-func hit(_damage: int, normal: Vector2):
+func hit(_damage: int, normal: Vector2, _hit_type):
 	destroy()
 
 	var explosion = Explosion.instance()
@@ -85,4 +85,4 @@ func _on_Asteroid_body_entered(body: Node):
 		return
 
 	if body.has_method('hit'):
-		body.hit(size, linear_velocity.normalized())
+		body.hit(size, linear_velocity.normalized(), Constants.HitTypes.asteroid)

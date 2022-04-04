@@ -23,6 +23,7 @@ var input_buffer: InputBuffer
 var actions = ["shield", "thrust", "fire", "brake", "left", "right"]
 
 func _ready():
+	add_to_group("player_ships")
 	sprite.modulate = color
 
 
@@ -30,7 +31,7 @@ func start(pos: Vector2):
 	position = pos
 
 
-func hit(_damage, _normal: Vector2):
+func hit(_damage, _normal: Vector2, _hit_type):
 	if shield.is_shielded:
 		shield.deplete_shield()
 		return

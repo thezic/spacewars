@@ -2,8 +2,11 @@ extends Node
 
 signal score_updated(score)
 
+
 var score setget _set_score
 var bonus := 0
+
+var FloatingScore = preload("res://ui/FloatingScore.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,3 +37,16 @@ func calculate_score_for_asteroid(size: int, asteroids_in_play: int, level: int)
 	if new_bonus > bonus:
 		bonus = new_bonus
 	return (6 - size) * bonus * level
+
+
+func calculate_score_for_ufo(level: int):
+	return 250 + level * 250
+
+
+func create_floating_score(value: int, pos: Vector2, add_score = true):
+	if add_score:
+		add(value)
+
+	var floating_score = FloatingScore.instance()
+	add_child(floating_score)
+	floating_score.start(str(value), pos)

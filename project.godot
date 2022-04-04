@@ -44,6 +44,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
+Constants="*res://autoload/constants.gd"
 Utils="*res://autoload/utils.gd"
 Score="*res://autoload/score.gd"
 Menu="*res://autoload/menu.gd"

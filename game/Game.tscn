@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://game/World.gd" type="Script" id=1]
 [ext_resource path="res://game/player/Player.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://assets/fonts/Infinite.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://ui/GUI.gd" type="Script" id=7]
 [ext_resource path="res://assets/music/Untitled2-looping.mp3" type="AudioStream" id=8]
+[ext_resource path="res://game/UfoManager.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -82,6 +83,9 @@ volume_db = -17.661
 autoplay = true
 bus = "MusicMaster"
 
+[node name="UfoManager" parent="." instance=ExtResource( 10 )]
+
+[connection signal="start_level" from="." to="UfoManager" method="_on_Game_start_level"]
 [connection signal="world_clear" from="World" to="." method="_on_level_clear"]
 [connection signal="lives_updated" from="World/Player" to="GUI/PlayerLives" method="update_lives"]
 [connection signal="player_gameover" from="World/Player" to="." method="_on_Player_player_gameover"]
