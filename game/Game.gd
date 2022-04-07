@@ -39,6 +39,7 @@ func _on_level_clear():
 
 
 func _on_Player_player_gameover():
+	Score.lock()
 	game_over_ui.visible = true
 	game_over_ui.start()
 

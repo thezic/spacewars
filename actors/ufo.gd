@@ -7,6 +7,7 @@ export var success_distance := 50
 export var look_ahead := 200.0
 export var enable_debug_draw := false
 export var damage := 100.0
+export var aggressive_distance := 300.0
 
 var destination_target := Vector2.ZERO
 var velocity := Vector2.ZERO
@@ -15,10 +16,12 @@ var ray_directions = []
 var interests = []
 var dangers = []
 var num_rays = 32
+var is_aggressive = false
 
 var chosen_direction := Vector2.ZERO
 
 onready var shield_sprite := $Shield
+onready var sprite := $UfoSprite
 onready var timer := $Timer
 onready var tween := $Tween
 onready var target_area := $TargetArea
@@ -71,13 +74,22 @@ func _choose_destination():
 	print(destination_target)
 
 
+func select_target():
+	var player = _find_player()
+	if is_aggressive and player:
+		return player.position
+
+	var asteroid = _find_asteroid()
+	if asteroid:
+		return asteroid.position
+
+	return destination_target
+
+
 func _set_interests():
-	var target_direction = (destination_target - position).normalized()
+	var target = select_target()
+	var target_direction = (target - position).normalized()
 
-	for player in get_tree().get_nodes_in_group("player_ships"):
-		target_direction = player.position - position
-
-	target_direction = target_direction.normalized()
 	for i in num_rays:
 		var d = ray_directions[i].rotated(rotation).dot(target_direction)
 		interests[i] = max(0, d)
@@ -121,6 +133,7 @@ func _physics_process(delta):
 	if (position - destination_target).length() < success_distance:
 		_choose_destination()
 
+	_check_aggressive()
 	_set_interests()
 	_set_dangers()
 	_choose_direction()
@@ -179,3 +192,48 @@ func _on_Timer_timeout():
 	plasma.start(position, nearest.angle(), Constants.HitTypes.ufo)
 	plasma.collision_layer = 1
 	plasma.collision_mask = 1
+
+
+func _find_player():
+	for player in get_tree().get_nodes_in_group("player_ships"):
+		var player_direction = player.position - position
+		if player_direction.length() < aggressive_distance:
+			return player
+
+
+func _find_asteroid():
+	var asteroids = get_tree().get_nodes_in_group("asteroids")
+
+	if asteroids.size() == 0:
+		return null
+
+	var nearest = asteroids[0]
+	var distance = (nearest.position - position).length()
+	for asteroid in asteroids:
+		if (asteroid.position - position).length() < distance:
+			nearest = asteroid
+			distance = (asteroid.position - position).length()
+
+	return nearest
+
+
+func sort_asteroid_by_size(a, b):
+	return a.size > b.size
+
+
+func _check_aggressive():
+	var player = _find_player()
+	if not player:
+		is_aggressive = false
+		return
+
+	var distance = player.position - position
+	is_aggressive = distance.length() < aggressive_distance
+
+
+
+func _process(delta):
+	var color = sprite.self_modulate
+	var target_color = Color(1, 0, 0) if is_aggressive else Color(1, 1, 1)
+
+	sprite.self_modulate = color.linear_interpolate(target_color, delta * 2)

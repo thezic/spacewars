@@ -14,11 +14,12 @@ var Explosion = preload("res://effects/Explosion.tscn")
 
 var split_and_speed = {
 	5: 100,
-	4: 150,
-	3: 200,
-	2: 225,
-	1: 250,
+	4: 125,
+	3: 150,
+	2: 175,
+	1: 200,
 }
+var max_speed = 300
 
 
 func _get_scale() -> float:
@@ -62,7 +63,7 @@ func start(sz: int, pos: Vector2, dir: Vector2):
 		sz = max_size
 	size = sz
 	position = pos
-	linear_velocity = dir * split_and_speed[sz]
+	linear_velocity = dir.normalized() * split_and_speed[sz]
 
 
 func get_radius():
@@ -75,6 +76,9 @@ func _fix_scale():
 
 
 func _integrate_forces(state: Physics2DDirectBodyState):
+	# Ugly ifx for some random error
+	if linear_velocity.length() > max_speed:
+		linear_velocity = linear_velocity.normalized() * max_speed
 	state.transform.origin = Utils.wrap_physics_body(position)
 
 
