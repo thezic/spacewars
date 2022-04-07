@@ -28,13 +28,13 @@ func spawn_ship(reduce_lives = false):
 		emit_signal("lives_updated", lives)
 
 	var ship = Ship.instance()
-	ship.start(spawn_position)
 
 	var err = ship.connect("ship_destroyed", self, "_on_ship_destroyed")
 	if err:
 		print("Error connecting ship signal" + str(err))
 
 	add_child(ship)
+	ship.start(spawn_position, reduce_lives)
 
 
 func _on_ship_destroyed():

@@ -16,7 +16,7 @@ func _enter_state(ctx, _data):
 
 func _state_physics_process(ctx, delta):
 	ctx.shield_energy -= ctx.shield.shield_deplete * delta
-	ctx.shield.shield_sprite.modulate = Color(10, 10, 10, 0.8 * (float(ctx.shield_energy) / ctx.shield.shield_energy))
+	ctx.shield.shield_sprite.modulate = Color(1.5, 1.5, 1.5, 0.8 * (float(ctx.shield_energy) / ctx.shield.shield_energy))
 
 	if ctx.shield_energy <= 0:
 		transition("ShieldDepleted")

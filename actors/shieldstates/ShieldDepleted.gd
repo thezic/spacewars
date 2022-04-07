@@ -1,6 +1,6 @@
 extends "ShieldInactive.gd"
 
-export(Color) var depleted_meter_color := Color(255, 0, 0, 0.5)
+export(Color) var depleted_meter_color := Color(1.5, 0, 0, 0.5)
 
 
 func _enter_state(ctx, _data):

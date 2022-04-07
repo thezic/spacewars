@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/sprites/smoke-particle.png" type="Texture" id=1]
 [ext_resource path="res://effects/Explosion.gd" type="Script" id=2]
@@ -11,29 +11,10 @@ blend_mode = 1
 offsets = PoolRealArray( 0.219941, 0.730205, 1 )
 colors = PoolColorArray( 0.0627451, 0.670588, 0.776471, 1, 0.222264, 0.754712, 0.750538, 0.532258, 0.113725, 0.596078, 0.466667, 0 )
 
-[sub_resource type="GradientTexture" id=3]
-gradient = SubResource( 2 )
-
-[sub_resource type="ParticlesMaterial" id=4]
-flag_disable_z = true
-spread = 180.0
-gravity = Vector3( 0, 0, 0 )
-initial_velocity = 58.32
-initial_velocity_random = 0.33
-angular_velocity = 198.1
-angular_velocity_random = 1.0
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-angle = 720.0
-angle_random = 0.97
-scale = 0.0
-scale_random = 1.0
-color_ramp = SubResource( 3 )
-
 [node name="Explosion" type="Node2D"]
 script = ExtResource( 2 )
 
-[node name="Particles2D" type="Particles2D" parent="."]
+[node name="Particles2D" type="CPUParticles2D" parent="."]
 material = SubResource( 1 )
 emitting = false
 amount = 25
@@ -41,8 +22,18 @@ one_shot = true
 speed_scale = 2.81
 explosiveness = 1.0
 randomness = 1.0
-process_material = SubResource( 4 )
 texture = ExtResource( 1 )
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 58.32
+initial_velocity_random = 0.33
+angular_velocity = 198.1
+angular_velocity_random = 1.0
+angle = 720.0
+angle_random = 0.97
+scale_amount = 0.0
+scale_amount_random = 1.0
+color_ramp = SubResource( 2 )
 
 [node name="BoomAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
