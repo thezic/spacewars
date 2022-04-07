@@ -11,6 +11,7 @@ export var spin_torque := 2000
 export var recoil := -200
 export var ease_time := 3
 export var action_prefix := "player_1_"
+export var use_alternative_controls := true
 
 onready var sprite := $Sprite
 onready var shield := $Shield
@@ -21,6 +22,8 @@ enum Rot { LEFT = -1, NONE = 0, RIGHT = 1 }
 
 var thrust := Vector2()
 var rotation_dir: int = Rot.NONE
+var alt_control = Vector2.ZERO
+var alt_rotation = 0.0
 var input_buffer: InputBuffer
 var actions = ["shield", "thrust", "fire", "brake", "left", "right"]
 var is_invincible := false
@@ -30,6 +33,7 @@ var collision_mask_backup := 0
 func _ready():
 	add_to_group("player_ships")
 	sprite.modulate = color
+	use_alternative_controls = not Settings.classic_controls
 
 
 func start(pos: Vector2, invincible: bool = true):
@@ -86,19 +90,32 @@ func _process(_delta):
 	if input_buffer.is_action_just_released("shield"):
 		shield.deactivate_shield()
 
+	alt_control = Vector2.ZERO
 	if input_buffer.is_action_pressed("thrust"):
 		thrust = transform.x * engine_thrust
+		alt_control += Vector2.UP
+		# alt_rotation = alt_control.angle()
 	elif input_buffer.is_action_pressed("brake"):
 		thrust = transform.x * (-engine_thrust)
+		alt_control += Vector2.DOWN
+		# alt_rotation = alt_control.angle()
 	else:
 		thrust = Vector2()
 
 	if input_buffer.is_action_pressed("left"):
 		rotation_dir = Rot.LEFT
+		alt_control += Vector2.LEFT
+		# alt_rotation = alt_control.angle()
 	elif input_buffer.is_action_pressed("right"):
 		rotation_dir = Rot.RIGHT
+		alt_control += Vector2.RIGHT
+		# alt_rotation = alt_control.angle()
 	else:
 		rotation_dir = Rot.NONE
+
+	if alt_control.length() > 0:
+		alt_rotation = lerp_angle(alt_rotation, alt_control.angle(), _delta * 10)
+
 
 	if input_buffer.is_action_just_pressed("fire"):
 		var plasma = Plasma.instance()
@@ -108,7 +125,7 @@ func _process(_delta):
 		get_parent().add_child(plasma)
 		apply_central_impulse(transform.x * recoil)
 
-	if thrust.length() > 0:
+	if thrust.length() > 0 or use_alternative_controls and alt_control.length() > 0:
 		$Particles2D.emitting = true
 	else:
 		$Particles2D.emitting = false
@@ -119,8 +136,17 @@ func _physics_process(_delta):
 	pass
 
 
+func _alt_control(_state: Physics2DDirectBodyState):
+	applied_force = alt_control * engine_thrust
+	rotation = alt_rotation
+
+
 func _integrate_forces(state: Physics2DDirectBodyState):
-	applied_force = thrust
-	applied_torque = rotation_dir * spin_torque
+
+	if use_alternative_controls:
+		_alt_control(state)
+	else:
+		applied_force = thrust
+		applied_torque = rotation_dir * spin_torque
 
 	state.transform.origin = Utils.wrap_physics_body(position)

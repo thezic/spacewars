@@ -9,6 +9,7 @@ extends Control
 onready var fullscreen_checkbox :=  $"MarginContainer/VBoxContainer/HBoxContainer/FullscreenCheckbox"
 onready var music_slider := $"MarginContainer/VBoxContainer/HBoxContainer2/MusicVolume"
 onready var sfx_slider := $"MarginContainer/VBoxContainer/HBoxContainer3/SoundVolume"
+onready var classic_controls_checkbox := $MarginContainer/VBoxContainer/HBoxContainer5/ClassicControlsCheckbox
 
 var music_master_bus: int
 var sfx_master_bus: int
@@ -20,6 +21,7 @@ func _ready():
 
 
 func _load_menu():
+	classic_controls_checkbox.pressed = Settings.classic_controls
 	fullscreen_checkbox.pressed = OS.window_fullscreen
 	music_slider.value = db2linear(AudioServer.get_bus_volume_db(music_master_bus))
 	sfx_slider.value = db2linear(AudioServer.get_bus_volume_db(sfx_master_bus))
@@ -37,6 +39,7 @@ func _on_SaveButton_pressed():
 	Settings.fullscreen = fullscreen_checkbox.pressed
 	Settings.music_volume_db = AudioServer.get_bus_volume_db(music_master_bus)
 	Settings.sfx_volume_db = AudioServer.get_bus_volume_db(sfx_master_bus)
+	Settings.classic_controls = classic_controls_checkbox.pressed
 	Settings.save_settings()
 	Menu.load_menu(Menu.MENU.MAIN);
 
