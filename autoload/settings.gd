@@ -9,7 +9,7 @@ var settings_file := "user://settings.save"
 var fullscreen: bool
 var music_volume_db: float
 var sfx_volume_db: float
-var classic_controls: bool
+var classic_controls := true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -26,7 +26,7 @@ func load_settings():
 		sfx_volume_db = f.get_var()
 
 		var loaded_classic_controls = f.get_var()
-		classic_controls = loaded_classic_controls if loaded_classic_controls != null else true
+		classic_controls = true if loaded_classic_controls == null else loaded_classic_controls
 
 		f.close()
 		_update_settings()

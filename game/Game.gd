@@ -1,7 +1,8 @@
 extends Node
 
 signal quit_game
-signal start_level(nr)
+signal prepare_level(level)
+signal start_level(level)
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -35,6 +36,7 @@ func _on_LevelStart():
 func _on_level_clear():
 	print("Start level " + str(level))
 	level += 1
+	emit_signal("prepare_level", level)
 	start_timer.start()
 
 
@@ -50,6 +52,7 @@ func reset():
 	Score.reset()
 	world.reset()
 	ufo_manager.reset()
+	emit_signal("prepare_level", level)
 	start_timer.start()
 
 
