@@ -2,24 +2,25 @@ extends RigidBody2D
 
 signal ship_destroyed
 
-var Plasma = preload("res://objects/plasma_sm/PlasmaSm.tscn")
 var Explosion = preload("res://effects/Explosion.tscn")
 
 export var color := Color(255, 0, 0)
 export var engine_thrust := 500
 export var spin_torque := 2000
-export var recoil := -200
 export var ease_time := 3
 export var action_prefix := "player_1_"
 export var use_alternative_controls := true
 
+export(PackedScene) var Weapon
+
 onready var sprite := $Sprite
 onready var shield := $Shield
-onready var zap_audio := $ZapAudio
 onready var animation := $ShipAnimation
+onready var muzzle := $Muzzle
 
 enum Rot { LEFT = -1, NONE = 0, RIGHT = 1 }
 
+var weapon
 var thrust := Vector2()
 var rotation_dir: int = Rot.NONE
 var alt_control = Vector2.ZERO
@@ -34,6 +35,10 @@ func _ready():
 	add_to_group("player_ships")
 	sprite.modulate = color
 	use_alternative_controls = not Settings.classic_controls
+
+	weapon = Weapon.instance()
+	weapon.initialize(get_parent(), muzzle, self)
+	add_child(weapon)
 
 
 func start(pos: Vector2, invincible: bool = true):
@@ -118,12 +123,10 @@ func _process(_delta):
 
 
 	if input_buffer.is_action_just_pressed("fire"):
-		var plasma = Plasma.instance()
-		zap_audio.pitch_scale = rand_range(0.8, 1.2)
-		zap_audio.play()
-		plasma.start($Mussle.global_position, rotation)
-		get_parent().add_child(plasma)
-		apply_central_impulse(transform.x * recoil)
+		weapon.fire_just_pressed()
+
+	if input_buffer.is_action_just_released("fire"):
+		weapon.fire_just_released()
 
 	if thrust.length() > 0 or use_alternative_controls and alt_control.length() > 0:
 		$Particles2D.emitting = true
