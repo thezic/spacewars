@@ -172,6 +172,13 @@ func destroy(emit = true):
 	explosion.start(position, Vector2())
 	if emit:
 		emit_signal("destroyed")
+
+	if randf() < 0.8:
+		var pickup = Pickups.get_random_pickup(
+			[PickupInfo.PickupId.BLASTER_REPEAT, PickupInfo.PickupId.BLASTER_SPREAD],
+			[100, 100])
+		Pickups.create_pickup(pickup, position, velocity.normalized())
+
 	queue_free()
 
 

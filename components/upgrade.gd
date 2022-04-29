@@ -1,7 +1,10 @@
-extends "res://actors/items/init_launcher.gd"
+extends Resource
+class_name Upgrade
 
 
-var id = Items.ItemID.BLASTER
+export var name: String
+export var value = 0.0
+
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"

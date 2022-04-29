@@ -48,6 +48,13 @@ func hit(_damage: int, normal: Vector2, _hit_type):
 func destroy():
 	queue_free()
 	emit_signal("asteroid_destroyed", size)
+
+	if randf() < 0.4:
+		var pickup = Pickups.get_random_pickup(
+			[PickupInfo.PickupId.BLASTER_REPEAT, PickupInfo.PickupId.BLASTER_SPREAD],
+			[100, 1])
+		Pickups.create_pickup(pickup, position, linear_velocity.normalized())
+
 	on_destroyed_clb.call_func(size, position)
 
 

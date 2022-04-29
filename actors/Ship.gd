@@ -1,6 +1,7 @@
 extends RigidBody2D
 
 signal ship_destroyed
+signal pickup(pickup)
 
 var Explosion = preload("res://effects/Explosion.tscn")
 
@@ -10,8 +11,6 @@ export var spin_torque := 2000
 export var ease_time := 3
 export var action_prefix := "player_1_"
 export var use_alternative_controls := true
-
-export(PackedScene) var Weapon
 
 onready var sprite := $Sprite
 onready var shield := $Shield
@@ -26,7 +25,7 @@ var rotation_dir: int = Rot.NONE
 var alt_control = Vector2.ZERO
 var alt_rotation = 0.0
 var input_buffer: InputBuffer
-var actions = ["shield", "thrust", "fire", "brake", "left", "right"]
+var actions = ["shield", "thrust", "fire", "brake", "left", "right", "change_weapon"]
 var is_invincible := false
 
 var collision_layer_backup := 0
@@ -36,9 +35,24 @@ func _ready():
 	sprite.modulate = color
 	use_alternative_controls = not Settings.classic_controls
 
-	weapon = Weapon.instance()
+	weapon = get_node('Weapon')
 	weapon.initialize(get_parent(), muzzle, self)
+
+
+func mount_weapon(Weapon: PackedScene, stats):
+	if weapon:
+		weapon.queue_free()
+	weapon = Weapon.instance()
 	add_child(weapon)
+	weapon.initialize(get_parent(), muzzle, self)
+	
+	print('hello' + str(stats))
+	if stats and weapon.has_method('set_stats'):
+		weapon.set_stats(stats)
+	
+	if input_buffer and input_buffer.is_action_pressed("fire"):
+		weapon.fire_just_pressed()
+	
 
 
 func start(pos: Vector2, invincible: bool = true):
@@ -128,11 +142,20 @@ func _process(_delta):
 	if input_buffer.is_action_just_released("fire"):
 		weapon.fire_just_released()
 
+	if input_buffer.is_action_just_pressed("change_weapon"):
+		var parent = get_parent()
+		if parent.has_method("get_next_weapon"):
+			mount_weapon(parent.get_next_weapon(), parent.get_stats())
+
 	if thrust.length() > 0 or use_alternative_controls and alt_control.length() > 0:
 		$Particles2D.emitting = true
 	else:
 		$Particles2D.emitting = false
 
+
+func give_pickup(pickup: PickupInfo):
+	emit_signal("pickup", pickup)
+	return true
 
 
 func _physics_process(_delta):

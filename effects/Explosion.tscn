@@ -9,7 +9,7 @@ blend_mode = 1
 
 [sub_resource type="Gradient" id=2]
 offsets = PoolRealArray( 0.219941, 0.730205, 1 )
-colors = PoolColorArray( 0.0627451, 0.670588, 0.776471, 1, 0.222264, 0.754712, 0.750538, 0.532258, 0.113725, 0.596078, 0.466667, 0 )
+colors = PoolColorArray( 1, 1, 1, 1, 0.686275, 0.686275, 0.686275, 0.533333, 0.113725, 0.596078, 0.466667, 0 )
 
 [node name="Explosion" type="Node2D"]
 script = ExtResource( 2 )
